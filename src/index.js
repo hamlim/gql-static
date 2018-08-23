@@ -1,7 +1,7 @@
 /*
 Plan:
 
-1. Generate schema based on directory structure
+1. Generate resolvers based on directory structure
 2. Find doc-query.js files and execute their query export
 3. return the resolved data as doc-data.js as a main export
 4. Drop all the data into a top level components-data.js file
@@ -23,22 +23,20 @@ const directory = COMPONENTS.reduce((directory, componentPath) => {
   }
 }, {})
 
-console.log(directory)
-
 const SCHEMA = buildSchema(`
 type Query {
   fileNames: [String]
 }
 `)
 
-function flattenChildren(child, selector) {
+function flattenChildrenToFiles(child, selector) {
   if (!child.children) {
     return [selector(child)]
   } else {
     return child.children.reduce(
       (allChildren, child) => [
         ...allChildren,
-        ...flattenChildren(child, selector),
+        ...flattenChildrenToFiles(child, selector),
       ],
       [],
     )
@@ -53,7 +51,7 @@ const resolvers = {
         const allChildren = children.reduce(
           (children, child) => [
             ...children,
-            ...flattenChildren(child, c => c.path),
+            ...flattenChildrenToFiles(child, c => c.path),
           ],
           [],
         )
