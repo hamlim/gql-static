@@ -1,0 +1,22 @@
+{
+  "name": "gql-static",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hamlim/gql-static.git",
+  "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "start": "node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.0.0-rc.2",
+    "@babel/core": "7.0.0-rc.2",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0-rc.2",
+    "@babel/plugin-transform-modules-commonjs": "7.0.0-rc.2"
+  },
+  "dependencies": {
+    "directory-tree": "2.1.0",
+    "graphql": "0.13.2"
+  }
+}
